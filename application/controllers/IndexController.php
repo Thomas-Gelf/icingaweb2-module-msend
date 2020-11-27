@@ -30,7 +30,7 @@ class IndexController extends Controller
             $error = $e->getMessage();
             echo $e->getMessage() . "\n";
         }
-        if ($this->Config()->get('msend', 'force_log') === 'yes') {
+        if ($this->Config()->get('logging', 'force') === 'yes') {
             if ($error) {
                 Logger::error("msend (ERR: $error): $cmd");
             } else {

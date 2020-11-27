@@ -21,9 +21,9 @@ class MSendEventFactory
     {
         $this->senders = $senders;
         $this->classes = $classes;
-        $config = Config::module('eventtracker');
-        if ($config->hasSection('msend-severity-map')) {
-            $this->severityMap = $config->getSection('msend-severity-map')->toArray();
+        $config = Config::module('msend');
+        if ($config->hasSection('severity-map')) {
+            $this->severityMap = $config->getSection('severity-map')->toArray();
         } else {
             $this->severityMap = $this->getDefaultSeverityMap();
         }
