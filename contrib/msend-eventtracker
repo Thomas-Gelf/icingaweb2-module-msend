@@ -1,0 +1,19 @@
+#!/bin/bash
+
+ICINGAWEB2=http://localhost/icingaweb2
+# CURL="curl --capath /etc/ssl/certs/ --cert /my/cert.pem --cert-type PEM"
+CURL="curl"
+
+C=''
+for i in "$@"; do
+    case "$i" in
+        *\'*)
+            i=`printf "%s" "$i" | sed "s/'/'\"'\"'/g"`
+            ;;
+        *) : ;;
+    esac
+    C="$C '$i'"
+done
+echo "$C"
+
+"$CURL" -X POST $ICINGAWEB2/msend -H "Content-Type: text/plain" --data-binary "$C"
