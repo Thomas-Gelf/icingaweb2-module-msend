@@ -11,7 +11,7 @@ class IndexController extends Controller
     /**
      * @throws \Exception
      */
-    public function msendAction()
+    public function indexAction()
     {
         $cmd = $this->getRequest()->getRawBody();
         $this->getResponse()->setHeader('Content-Type', 'text/plain');
