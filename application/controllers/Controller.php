@@ -4,12 +4,12 @@ namespace Icinga\Module\Eventtracker\Controllers;
 
 use gipfl\IcingaWeb2\CompatController;
 use Icinga\Module\Eventtracker\Event;
-use Icinga\Module\Eventtracker\MSendEventFactory;
 use Icinga\Module\Eventtracker\DbFactory;
 use Icinga\Module\Eventtracker\EventReceiver;
-use Icinga\Module\Eventtracker\MSendCommandLine;
 use Icinga\Module\Eventtracker\ObjectClassInventory;
 use Icinga\Module\Eventtracker\SenderInventory;
+use Icinga\Module\Msend\MSendEventFactory;
+use Icinga\Module\Msend\MSendCommandLine;
 use Zend_Db_Adapter_Pdo_Abstract as ZfDbAdapter;
 
 class Controller extends CompatController
