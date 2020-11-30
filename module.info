@@ -1,4 +1,4 @@
 Name: msend
-Version: 0.2.0
+Version: 0.2.1
 Depends: eventtracker (>=0.8.0), ipl (>=0.5.0), incubator (>= 0.5.0)
 Description: Receives Icinga Alerts via msend

@@ -71,3 +71,9 @@ former one as follows:
 
 In case you're running a customized version of this script, you need to adjust
 the URL accordingly.
+
+Changes
+-------
+
+### v0.2.1
+* Fix controller namespaces (#2)
