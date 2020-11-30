@@ -1,6 +1,6 @@
 <?php
 
-namespace Icinga\Module\Eventtracker\Controllers;
+namespace Icinga\Module\Msend\Controllers;
 
 use gipfl\IcingaWeb2\CompatController;
 use Icinga\Module\Eventtracker\Event;
