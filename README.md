@@ -2,8 +2,8 @@ msend receiver for Icinga Alerts
 ================================
 
 This module will receive Icinga Alerts via `msend` from the **BMC (ProactiveNet)
-Event Manager©**). In future it should hook into **Icinga Alerts**, right now it
-directly depends on the [Event Tracker](https://github.com/Thomas-Gelf/icingaweb2-module-eventracker)
+Event Manager©**). In the future, it should hook into **Icinga Alerts**. Right
+now it directly depends on the [Event Tracker](https://github.com/Thomas-Gelf/icingaweb2-module-eventracker)
 module.
 
 Security
@@ -74,6 +74,10 @@ the URL accordingly.
 
 Changes
 -------
+
+### v0.3.0
+* use Event::create() for recent eventtracker
+* breaking: requires PHP 7.3
 
 ### v0.2.1
 * Fix controller namespaces (#2)
