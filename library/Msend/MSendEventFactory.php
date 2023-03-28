@@ -44,8 +44,8 @@ class MSendEventFactory
         } else {
             $timeout = null;
         }
-        $event = new Event();
-        $event->setProperties([
+
+        return Event::create([
             'host_name'       => $cmd->getRequiredSlotValue('mc_host'),
             'object_name'     => $cmd->getRequiredSlotValue('mc_object'),
             'object_class'    => $this->classes->requireClass($cmd->getRequiredSlotValue('mc_object_class')),
@@ -62,8 +62,6 @@ class MSendEventFactory
             ),
             'attributes'      => $cmd->getSlotValues(),
         ]);
-
-        return $event;
     }
 
     protected function mapSeverity($severity)
@@ -77,7 +75,7 @@ class MSendEventFactory
         throw new InvalidArgumentException("Got invalid severity $severity");
     }
 
-    protected function getDefaultSeverityMap()
+    protected function getDefaultSeverityMap(): array
     {
         return [
             // 'emergency',

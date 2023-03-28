@@ -20,12 +20,9 @@ class MSendCommandLine
     }
 
     /**
-     * @param SenderInventory $senders
-     * @param ObjectClassInventory $classes
-     * @return Event
      * @throws \Exception
      */
-    public function getEvent(SenderInventory $senders, ObjectClassInventory $classes)
+    public function getEvent(SenderInventory $senders, ObjectClassInventory $classes): Event
     {
         $timeout = $this->getSlotValue('mc_timeout');
         if (strlen($timeout) > 0) {
@@ -35,8 +32,7 @@ class MSendCommandLine
         } else {
             $timeout = null;
         }
-        $event = new Event();
-        $event->setProperties([
+        return Event::create([
             'host_name'     => $this->getRequiredSlotValue('mc_host'),
             'object_name'   => $this->getRequiredSlotValue('mc_object'),
             'object_class'  => $classes->requireClass($this->getRequiredSlotValue('mc_object_class')),
@@ -52,8 +48,6 @@ class MSendCommandLine
                 // $this->getRequiredSlotValue('mc_tool_class')
             )
         ]);
-
-        return $event;
     }
 
     public function getSeverity()
@@ -114,7 +108,7 @@ class MSendCommandLine
         return $this->arguments;
     }
 
-    public function hasSlotValue($name)
+    public function hasSlotValue($name): bool
     {
         return array_key_exists($name, $this->slotValues);
     }
@@ -183,7 +177,7 @@ class MSendCommandLine
         $this->slotValues = $values;
     }
 
-    protected function unEscapeSlotArgument($value)
+    protected function unEscapeSlotArgument($value): string
     {
         return stripcslashes(str_replace(
             ['\a', '\b', '\f', '\n', '\r', '\t', '\v'],
@@ -202,7 +196,7 @@ class MSendCommandLine
      * @return string[] array of command line argument strings
      * @throws \RuntimeException
      */
-    protected function split($command)
+    protected function split(string $command): array
     {
         // whitespace characters count as argument separators
         static $ws = [

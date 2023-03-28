@@ -3,26 +3,25 @@
 namespace Icinga\Module\Msend\Controllers;
 
 use gipfl\IcingaWeb2\CompatController;
+use gipfl\ZfDb\Adapter\Adapter as Db;
 use Icinga\Module\Eventtracker\Event;
 use Icinga\Module\Eventtracker\DbFactory;
 use Icinga\Module\Eventtracker\EventReceiver;
+use Icinga\Module\Eventtracker\Issue;
 use Icinga\Module\Eventtracker\ObjectClassInventory;
 use Icinga\Module\Eventtracker\SenderInventory;
 use Icinga\Module\Msend\MSendEventFactory;
 use Icinga\Module\Msend\MSendCommandLine;
-use Zend_Db_Adapter_Pdo_Abstract as ZfDbAdapter;
 
 class Controller extends CompatController
 {
-    /** @var ZfDbAdapter */
+    /** @var ?Db */
     protected $db;
 
+    /** @var ?MSendCommandLine */
     protected $mSend;
 
-    /**
-     * @return ZfDbAdapter
-     */
-    protected function db()
+    protected function db(): Db
     {
         if ($this->db === null) {
             $this->db = DbFactory::db();
@@ -31,22 +30,16 @@ class Controller extends CompatController
         return $this->db;
     }
 
-    /**
-     * @param Event $event
-     * @return \Icinga\Module\Eventtracker\Issue|null
-     * @throws \Zend_Db_Adapter_Exception
-     */
-    protected function processEvent(Event $event)
+    protected function processEvent(Event $event): ?Issue
     {
         $receiver = new EventReceiver($this->db());
         return $receiver->processEvent($event);
     }
 
     /**
-     * @return Event
      * @throws \Exception
      */
-    protected function getEvent()
+    protected function getEvent(): Event
     {
         $db = $this->db();
         $senders = new SenderInventory($db);
@@ -56,7 +49,7 @@ class Controller extends CompatController
         return $eventFactory->fromCommandLine($this->getMSend());
     }
 
-    protected function getMSend()
+    protected function getMSend(): MSendCommandLine
     {
         if ($this->mSend === null) {
             $cmd = $this->getRequest()->getRawBody();
