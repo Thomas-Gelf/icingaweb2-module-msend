@@ -273,7 +273,7 @@ class MSendCommandLine
                         // double quote ends
                         $inQuote = null;
 
-                        // previous double quoted part should be interpreted
+                        // previous double-quoted part should be interpreted
                         $argument .= stripcslashes($part);
                         $part = '';
                         continue;

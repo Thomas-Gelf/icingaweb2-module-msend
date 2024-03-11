@@ -16,6 +16,7 @@ class MSendEventFactory
     protected $classes;
 
     protected $severityMap;
+    protected $propertyMap = [];
 
     public function __construct(SenderInventory $senders, ObjectClassInventory $classes)
     {
@@ -27,6 +28,7 @@ class MSendEventFactory
         } else {
             $this->severityMap = $this->getDefaultSeverityMap();
         }
+        $this->propertyMap = $config->getSection('property-map')->toArray();
     }
 
     /**
@@ -44,6 +46,10 @@ class MSendEventFactory
         } else {
             $timeout = null;
         }
+        $properties = [];
+        foreach ($this->propertyMap as $k => $v) {
+            $properties[$k] = $cmd->getSlotValue($v);
+        }
 
         return Event::create([
             'host_name'       => $cmd->getRequiredSlotValue('mc_host'),
@@ -60,8 +66,26 @@ class MSendEventFactory
                 // $this->getRequiredSlotValue('mc_tool'),
                 // $this->getRequiredSlotValue('mc_tool_class')
             ),
-            'attributes'      => $cmd->getSlotValues(),
-        ]);
+            'attributes'      => $this->filterSlotValues($cmd->getSlotValues()),
+        ] + $properties);
+    }
+
+    protected function filterSlotValues($slotValues): array
+    {
+        $filtered = [];
+        foreach ($slotValues as $k => $v) {
+            if ($k === 'severity'
+                || $k === 'msg'
+                || substr($k, 0, 3) === 'mc_'
+                || array_key_exists($k, $this->propertyMap)
+            ) {
+                continue;
+            }
+
+            $filtered[$k] = $v;
+        }
+
+        return $filtered;
     }
 
     protected function mapSeverity($severity)
