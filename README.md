@@ -53,18 +53,18 @@ Problem Handling
 ----------------
 
 The `property-map` section allows mapping special attributes to event
-properties, with `problem_handling` being the only property being available for
+properties, with `problem_identifier` being the only property being available for
 custom mapping right now.
 
 ```ini
 [property-map]
-; problem_handling = "problem_handling"
+; problem_identifier = "problem_identifier"
 ```
 
-This example maps the slot value `problem_handling` to the `problem_handling`
-Event property. A related configuration in the `msend` module might want to set
-`problem_handling` to `{service.vars.problem_handling|host.vars.problem_handling}`
-in the `[msend_params]` section for a specific cell.
+This example maps the slot value `problem_identifier` to the `problem_identifier`
+Event property. A related configuration in the `msend` module might for example
+want to set `problem_identifier` to `{service.vars.problem_identifier}` in the
+`[msend_params]` section for a specific cell.
 
 Upgrading
 ---------

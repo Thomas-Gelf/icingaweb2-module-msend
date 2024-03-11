@@ -77,7 +77,7 @@ class MSendEventFactory
             if ($k === 'severity'
                 || $k === 'msg'
                 || substr($k, 0, 3) === 'mc_'
-                || array_key_exists($k, $this->propertyMap)
+                || in_array($k, $this->propertyMap)
             ) {
                 continue;
             }
