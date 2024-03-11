@@ -48,7 +48,11 @@ class MSendEventFactory
         }
         $properties = [];
         foreach ($this->propertyMap as $k => $v) {
-            $properties[$k] = $cmd->getSlotValue($v);
+            $value = $cmd->getSlotValue($v);
+            if ($value === '') {
+                $value = null;
+            }
+            $properties[$k] = $value;
         }
 
         return Event::create([
